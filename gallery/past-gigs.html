@@ -1,0 +1,292 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+  <title>RUN LEVEL ZERO — Past Gigs Gallery</title>
+  <style>html,body{background:#000;color:#f5f5f5}</style>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300..800;1,300..800&family=Oswald:wght@200..700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/index_f6e4.6d5d31be.css">
+</head>
+<body>
+  <div class="layout">
+    <div class="description description-text">
+      <div class="quick-links">
+        <p class="quick-link"><a href="/index.html">Home</a></p>
+        <p class="quick-link"><a href="/gallery.html">Gallery</a></p>
+        <p class="quick-link"><a href="/livedates.html">Live Dates</a></p>
+      </div>
+
+      <h1 class="page-title">Past Gigs</h1>
+      <p class="intro-text">All six legacy live galleries consolidated on one page, with original titles and credits preserved.</p>
+
+      <div id="past-gigs-root"></div>
+    </div>
+  </div>
+
+  <div id="past-gigs-lightbox" class="lightbox" aria-hidden="true">
+    <a href="#" class="lightbox-backdrop" aria-label="Close image preview"></a>
+    <div class="lightbox-content">
+      <button type="button" class="lightbox-nav lightbox-prev" aria-label="Previous image">‹</button>
+      <img id="past-gigs-lightbox-image" src="" alt="">
+      <button type="button" class="lightbox-nav lightbox-next" aria-label="Next image">›</button>
+      <div id="past-gigs-lightbox-meta" class="lightbox-meta">
+        <p id="past-gigs-lightbox-caption" class="lightbox-caption"></p>
+      </div>
+      <a href="#" class="lightbox-close" aria-label="Close image preview">Close</a>
+    </div>
+  </div>
+
+  <script>
+    var pastGigSlides = [];
+    var currentPastGigIndex = -1;
+
+    var sections = [
+      {
+        slug: "live1",
+        title: "Live at TMPL, Stockholm, February 2005",
+        matchedDate: "Feb 2, 2005 — Stockholm, Sweden — Klubb Tempel.",
+        credit: "All pictures © Jan-Erik Saarinen 2005.",
+        files: [
+          "rlztempel2928-olarhythmstick-sml.jpg",
+          "rlztempel3001-hanskinetic-sml.jpg",
+          "rlztempel3003-darkhans-sml.jpg",
+          "rlztempel3005-hansprojectorlit-sml.jpg",
+          "rlztempel3017-villetouchesmike-sml.jpg",
+          "rlztempel3034-hansprojectorfist-sml.jpg",
+          "rlztempel3049-hansghost-sml.jpg"
+        ]
+      },
+      {
+        slug: "live2",
+        title: "Live at Tower, Bremen, November 2004",
+        matchedDate: "Nov 7, 2004 — Bremen, Germany — Tower.",
+        credit: "All pictures © Guido Rangnitt 2004.",
+        files: [
+          "RunLevelZero01HB071104.jpg",
+          "RunLevelZero02HB071104.jpg",
+          "RunLevelZero05HB071104.jpg",
+          "RunLevelZero12HB071104.jpg",
+          "RunLevelZero13HB071104.jpg",
+          "RunLevelZero14HB071104.jpg",
+          "RunLevelZero17HB071104.jpg",
+          "RunLevelZero18HB071104.jpg"
+        ]
+      },
+      {
+        slug: "live3",
+        title: "Live at Tech Noir, Stockholm, December 2003",
+        matchedDate: "Dec 13, 2003 — Stockholm, Sweden — Tech Noir.",
+        credit: "All pictures © Jan-Erik Saarinen 2003.",
+        files: [
+          "rlzlucia03-yellowredhans-sml.jpg",
+          "rlzlucia04-hansatkbd-ret-sml.jpg",
+          "rlzlucia06-hansandville-sml.jpg",
+          "rlzlucia08-bandandlights-int-sml.jpg",
+          "rlzlucia09-hansglovedhand-sml.jpg",
+          "rlzlucia12-villekbd-sml.jpg",
+          "rlzlucia13-hansraisesfist-sml-ret.jpg",
+          "rlzlucia18-hanspauses-dark-sml.jpg",
+          "rlzlucia19-bandaction-sml.jpg",
+          "rlzlucia21-blueredgreen-sml.jpg",
+          "rlzlucia22-hansandtwoshadows-sml.jpg",
+          "rlzlucia24-hansfingerpointing-sml.jpg"
+        ]
+      },
+      {
+        slug: "live4",
+        title: "Live at Top Act, Zapfendorf, November 2004",
+        matchedDate: "Nov 5, 2004 — Zapfendorf, Germany — Top Act.",
+        credit: "All pictures © La Nuit Obscure 2004.",
+        files: [
+          "bild_13.jpg",
+          "bild_12.jpg",
+          "bild_11.jpg",
+          "bild_10.jpg",
+          "bild_09.jpg",
+          "bild_08.jpg",
+          "bild_07.jpg"
+        ]
+      },
+      {
+        slug: "live5",
+        title: "Live at Monastery, Vienna, November 2004",
+        matchedDate: "Nov 1, 2004 — Wien, Austria — Monastery.",
+        credit: "All pictures © LD-50 2004.",
+        files: [
+          "ld50-nov1-008.jpg",
+          "ld50-nov1-009.jpg",
+          "ld50-nov1-011.jpg",
+          "ld50-nov1-013.jpg",
+          "ld50-nov1-014.jpg",
+          "ld50-nov1-020.jpg",
+          "ld50-nov1-022.jpg",
+          "ld50-nov1-023.jpg",
+          "ld50-nov1-025.jpg",
+          "ld50-nov1-027.jpg",
+          "ld50-nov1-029.jpg",
+          "ld50-nov1-030.jpg",
+          "ld50-nov1-031.jpg",
+          "ld50-nov1-032.jpg"
+        ]
+      },
+      {
+        slug: "live6",
+        title: "Live at Northern Storm, Leipzig, November 2005",
+        matchedDate: "Nov 5, 2005 — Leipzig, Germany — Northern Storm.",
+        credit: "All pictures © CRD Home 2005.",
+        files: [
+          "leip1.jpg",
+          "leip2.jpg",
+          "leip3.jpg",
+          "leip4.jpg",
+          "leip5.jpg",
+          "leip6.jpg",
+          "leip7.jpg",
+          "leip8.jpg",
+          "leip9.jpg",
+          "leip10.jpg",
+          "leip11.jpg"
+        ]
+      }
+    ];
+
+    function showPastGigImage(index) {
+      if (!pastGigSlides.length) return;
+      var bounded = (index + pastGigSlides.length) % pastGigSlides.length;
+      currentPastGigIndex = bounded;
+      var slide = pastGigSlides[bounded];
+      var lightbox = document.getElementById("past-gigs-lightbox");
+      var image = document.getElementById("past-gigs-lightbox-image");
+      var meta = document.getElementById("past-gigs-lightbox-meta");
+      var caption = document.getElementById("past-gigs-lightbox-caption");
+      image.src = slide.src;
+      image.alt = slide.alt || "Past gigs image";
+      caption.textContent = slide.caption || "";
+      meta.style.display = slide.caption ? "block" : "none";
+    }
+
+    function openLightbox(index) {
+      if (!pastGigSlides.length) return;
+      showPastGigImage(index);
+      var lightbox = document.getElementById("past-gigs-lightbox");
+      lightbox.style.display = "block";
+      lightbox.setAttribute("aria-hidden", "false");
+    }
+
+    function closeLightbox() {
+      var lightbox = document.getElementById("past-gigs-lightbox");
+      var image = document.getElementById("past-gigs-lightbox-image");
+      var meta = document.getElementById("past-gigs-lightbox-meta");
+      var caption = document.getElementById("past-gigs-lightbox-caption");
+      image.src = "";
+      image.alt = "";
+      caption.textContent = "";
+      meta.style.display = "none";
+      lightbox.style.display = "none";
+      lightbox.setAttribute("aria-hidden", "true");
+      currentPastGigIndex = -1;
+    }
+
+    function nextPastGigImage(step) {
+      if (currentPastGigIndex < 0) return;
+      showPastGigImage(currentPastGigIndex + step);
+    }
+
+    function renderSections() {
+      var root = document.getElementById("past-gigs-root");
+      var fragment = document.createDocumentFragment();
+
+      sections.forEach(function (section) {
+        var sectionEl = document.createElement("section");
+        sectionEl.className = "past-gigs-section";
+
+        var heading = document.createElement("h2");
+        heading.className = "year-subtitle";
+        heading.textContent = section.title;
+
+        var matched = document.createElement("p");
+        matched.className = "past-gigs-meta";
+        matched.textContent = section.matchedDate;
+
+        var credit = document.createElement("p");
+        credit.className = "past-gigs-credit";
+        credit.textContent = section.credit;
+
+        var grid = document.createElement("div");
+        grid.className = "archive-gallery";
+
+        section.files.forEach(function (fileName, index) {
+          var card = document.createElement("article");
+          card.className = "archive-card";
+          var src = "/gallery/past-gigs/" + section.slug + "/" + fileName;
+          var alt = section.title + " - image " + (index + 1);
+          var slideIndex = pastGigSlides.push({ src: src, alt: alt, caption: "" }) - 1;
+
+          var link = document.createElement("a");
+          link.href = "#";
+          link.addEventListener("click", function (event) {
+            event.preventDefault();
+            openLightbox(slideIndex);
+          });
+
+          var img = document.createElement("img");
+          img.src = src;
+          img.alt = alt;
+          img.loading = "lazy";
+          link.appendChild(img);
+
+          card.appendChild(link);
+          grid.appendChild(card);
+        });
+
+        sectionEl.appendChild(heading);
+        sectionEl.appendChild(matched);
+        sectionEl.appendChild(credit);
+        sectionEl.appendChild(grid);
+        fragment.appendChild(sectionEl);
+      });
+
+      root.appendChild(fragment);
+    }
+
+    document.querySelector("#past-gigs-lightbox .lightbox-backdrop").addEventListener("click", function (event) {
+      event.preventDefault();
+      closeLightbox();
+    });
+
+    document.querySelector("#past-gigs-lightbox .lightbox-close").addEventListener("click", function (event) {
+      event.preventDefault();
+      closeLightbox();
+    });
+
+    document.querySelector("#past-gigs-lightbox .lightbox-prev").addEventListener("click", function (event) {
+      event.preventDefault();
+      event.stopPropagation();
+      nextPastGigImage(-1);
+    });
+
+    document.querySelector("#past-gigs-lightbox .lightbox-next").addEventListener("click", function (event) {
+      event.preventDefault();
+      event.stopPropagation();
+      nextPastGigImage(1);
+    });
+
+    document.querySelector("#past-gigs-lightbox .lightbox-content").addEventListener("click", function (event) {
+      if (event.target !== event.currentTarget) return;
+      closeLightbox();
+    });
+
+    window.addEventListener("keydown", function (event) {
+      var key = event.key || event.code;
+      if (key === "Escape" || key === "Esc") closeLightbox();
+      if (key === "ArrowLeft") nextPastGigImage(-1);
+      if (key === "ArrowRight") nextPastGigImage(1);
+    });
+
+    renderSections();
+  </script>
+</body>
+</html>

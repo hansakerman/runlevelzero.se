@@ -4,6 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
   <title>RUN LEVEL ZERO — Gallery</title>
+  <style>html,body{background:#000;color:#f5f5f5}.page-transition{position:fixed;inset:0;background:#000;opacity:0;pointer-events:none;z-index:2147483647;transition:opacity .08s linear}html.is-navigating .page-transition{opacity:1}</style>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300..800;1,300..800&family=Oswald:wght@200..700&display=swap" rel="stylesheet">
@@ -22,6 +23,12 @@
 
       <ul class="gallery-link-list">
         <li>
+          <a href="/gallery/past-gigs.html">
+            <img class="gallery-link-thumb" src="/gallery/past-gigs/live2/RunLevelZero01HB071104.jpg" alt="Past gigs thumbnail">
+            <span>Past Gigs — consolidated live galleries</span>
+          </a>
+        </li>
+        <li>
           <a href="/gallery/tour2004/">
             <img class="gallery-link-thumb" src="/gallery/tour2004/bild017.jpg" alt="Tour 2004 thumbnail">
             <span>Tour 2004 — European Tour MMS Blog</span>
@@ -30,5 +37,25 @@
       </ul>
     </div>
   </div>
+  <div class="page-transition" aria-hidden="true"></div>
+  <script>
+    document.addEventListener("click", function (event) {
+      if (event.defaultPrevented || event.button !== 0) return;
+      if (event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) return;
+      var link = event.target.closest("a");
+      if (!link) return;
+      if (link.target && link.target !== "_self") return;
+      if (link.hasAttribute("download")) return;
+      var href = link.getAttribute("href");
+      if (!href || href.indexOf("#") === 0 || href.indexOf("mailto:") === 0 || href.indexOf("tel:") === 0) return;
+      var url = new URL(link.href, window.location.href);
+      if (url.origin !== window.location.origin) return;
+      event.preventDefault();
+      document.documentElement.classList.add("is-navigating");
+      window.setTimeout(function () {
+        window.location.href = url.href;
+      }, 24);
+    }, true);
+  </script>
 </body>
 </html>

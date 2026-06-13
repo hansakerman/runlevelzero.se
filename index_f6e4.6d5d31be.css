@@ -7,6 +7,9 @@ overflow-x:hidden;
 background:#000;
 color:#f5f5f5
 }
+a,button{
+-webkit-tap-highlight-color:transparent
+}
 .layout{
 position:relative;
 min-height:100vh;
@@ -74,13 +77,19 @@ font-size:clamp(16px,1.8vw,20px)
 .gallery-link-list{
 margin:0 0 22px;
 padding:0;
-list-style:none
+list-style:none;
+display:grid;
+grid-template-columns:repeat(2,minmax(0,1fr));
+gap:12px
 }
 .gallery-link-list li{
-margin:0 0 10px
+margin:0
 }
 .gallery-link-list a{
-display:inline-block;
+display:flex;
+flex-direction:column;
+height:100%;
+box-sizing:border-box;
 padding:10px 14px;
 border:1px solid rgba(255,255,255,.35);
 text-decoration:none
@@ -152,6 +161,25 @@ border:1px solid rgba(255,255,255,.2)
 .archive-status{
 font-size:clamp(13px,1.3vw,15px);
 opacity:.85
+}
+.past-gigs-section{
+margin:0 0 28px
+}
+.past-gigs-meta{
+margin:0 0 12px;
+font-size:clamp(13px,1.35vw,16px);
+opacity:.9
+}
+.past-gigs-credit{
+margin:0 0 14px;
+font-size:clamp(13px,1.3vw,15px);
+opacity:.86
+}
+.past-gigs-section .archive-gallery{
+margin-top:10px
+}
+.past-gigs-section .archive-card{
+padding:8px
 }
 .year-title{
 margin:26px 0 14px;
@@ -258,6 +286,47 @@ width:auto;
 height:auto;
 border:1px solid rgba(255,255,255,.25)
 }
+.lightbox-meta{
+display:none;
+max-width:min(1200px,94vw);
+box-sizing:border-box;
+padding:10px 12px;
+border:1px solid rgba(255,255,255,.25);
+background:rgba(0,0,0,.55)
+}
+.lightbox-date{
+margin:0 0 6px;
+font-size:clamp(12px,1.3vw,14px);
+opacity:.86
+}
+.lightbox-caption{
+margin:0;
+font-size:clamp(14px,1.5vw,17px);
+line-height:1.45
+}
+.lightbox-nav{
+position:absolute;
+top:50%;
+transform:translateY(-50%);
+z-index:2;
+width:44px;
+height:44px;
+border:1px solid rgba(255,255,255,.55);
+background:rgba(0,0,0,.5);
+color:#fff;
+font-size:30px;
+line-height:1;
+cursor:pointer
+}
+.lightbox-prev{
+left:clamp(8px,2vw,24px)
+}
+.lightbox-next{
+right:clamp(8px,2vw,24px)
+}
+.lightbox-nav:hover{
+background:rgba(255,255,255,.16)
+}
 .lightbox-close{
 font-size:clamp(14px,1.8vw,18px);
 line-height:1;
@@ -287,6 +356,17 @@ grid-template-columns:1fr
 }
 .archive-gallery{
 grid-template-columns:1fr
+}
+.gallery-link-list{
+grid-template-columns:1fr
+}
+.lightbox-nav{
+width:38px;
+height:38px;
+font-size:24px
+}
+.lightbox-meta{
+padding:8px 10px
 }
 .livedates-table th,.livedates-table td{
 padding:7px 6px
