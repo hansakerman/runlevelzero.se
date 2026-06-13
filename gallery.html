@@ -55,7 +55,14 @@
       window.setTimeout(function () {
         window.location.href = url.href;
       }, 24);
+      window.setTimeout(function () {
+        document.documentElement.classList.remove("is-navigating");
+      }, 1200);
     }, true);
+
+    window.addEventListener("pageshow", function () {
+      document.documentElement.classList.remove("is-navigating");
+    });
   </script>
 </body>
 </html>
