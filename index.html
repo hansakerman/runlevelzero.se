@@ -13,12 +13,12 @@
   <div class="layout">
     <div class="description description-text">
       <div class="homepage-banner">
-        <a href="#img-logo">
-          <img src="/pictures/rlz_logo_by_hans.avif" alt="Run Level Zero logo by Hans">
-        </a>
+        <img src="/pictures/rlz_logo_by_hans.avif" alt="Run Level Zero logo by Hans">
       </div>
+      <p class="quick-link"><a href="/livedates.html">Live Dates</a></p>
 
       <div class="news-item">
+        <p class="news-date">13 June 2026</p>
         <p>We are releasing Lost Tapes: 2002–2009, a collection of rough and raw material that almost no one has heard before. These are songs written by Hans Åkerman between 2002 and 2009 that never made it beyond the demo stage. The promotional photos feature Hans during those years and were taken by the brilliant photographer Jan-Erik Saarinen.</p>
         <div class="lost-tapes-gallery">
           <a href="#img-lost-1"><img src="/pictures/RLZLOSTTAPES-QR-2000px.jpg" alt="Lost Tapes promotional photo variation one"></a>
@@ -35,14 +35,6 @@
       </p>
 
       <p>contact: runlevelzeroband@proton.me</p>
-    </div>
-  </div>
-
-  <div id="img-logo" class="lightbox">
-    <a href="#" class="lightbox-backdrop" aria-label="Close image preview"></a>
-    <div class="lightbox-content">
-      <img src="/pictures/rlz_logo_by_hans.avif" alt="Run Level Zero logo by Hans">
-      <a href="#" class="lightbox-close" aria-label="Close image preview">Close</a>
     </div>
   </div>
 
@@ -69,5 +61,40 @@
       <a href="#" class="lightbox-close" aria-label="Close image preview">Close</a>
     </div>
   </div>
+  <script>
+    function getOpenLightbox() {
+      if (!window.location.hash) return;
+      var targetId = window.location.hash.slice(1);
+      var target = document.getElementById(targetId);
+      if (!target || !target.classList.contains("lightbox")) return null;
+      return target;
+    }
+
+    function closeLightboxIfOpen() {
+      if (!getOpenLightbox()) return;
+      window.location.hash = "";
+    }
+
+    function handleEscape(event) {
+      var key = event.key || event.code;
+      if (key !== "Escape" && key !== "Esc") return;
+      if (!getOpenLightbox()) return;
+      event.preventDefault();
+      event.stopPropagation();
+      closeLightboxIfOpen();
+    }
+
+    function focusOpenLightboxClose() {
+      var openLightbox = getOpenLightbox();
+      if (!openLightbox) return;
+      var closeLink = openLightbox.querySelector(".lightbox-close");
+      if (closeLink) closeLink.focus();
+    }
+
+    window.addEventListener("keydown", handleEscape, true);
+    window.addEventListener("keyup", handleEscape, true);
+    window.addEventListener("hashchange", focusOpenLightboxClose);
+    focusOpenLightboxClose();
+  </script>
 </body>
 </html>

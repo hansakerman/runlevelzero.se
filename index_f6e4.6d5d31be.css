@@ -41,6 +41,60 @@ color:#fff;
 font-size:inherit;
 text-decoration:underline dotted
 }
+.quick-link{
+margin:0 0 20px
+}
+.quick-link a{
+display:inline-block;
+padding:8px 12px;
+border:1px solid rgba(255,255,255,.35);
+text-decoration:none;
+font-size:clamp(14px,1.6vw,18px)
+}
+.quick-link a:hover{
+background:rgba(255,255,255,.12)
+}
+.page-title{
+margin:0 0 18px;
+font-size:clamp(28px,4vw,46px);
+line-height:1.15
+}
+.year-title{
+margin:26px 0 14px;
+font-size:clamp(21px,3vw,30px)
+}
+.year-subtitle{
+margin:22px 0 10px;
+font-size:clamp(18px,2.2vw,24px)
+}
+.livedates-table{
+width:100%;
+border-collapse:collapse;
+margin:0 0 20px
+}
+.livedates-table th,.livedates-table td{
+padding:8px 10px;
+border-bottom:1px solid rgba(255,255,255,.18);
+font-size:clamp(14px,1.5vw,18px);
+line-height:1.4;
+text-align:left;
+vertical-align:top
+}
+.livedates-table th{
+font-weight:700
+}
+.livedates-table .tour-row td{
+font-weight:700;
+padding-top:14px;
+border-bottom:1px solid rgba(255,255,255,.28)
+}
+.livedates-table .tour-meta td{
+font-size:clamp(12px,1.25vw,14px);
+opacity:.88;
+padding-top:4px;
+padding-bottom:10px;
+border-bottom:1px dashed rgba(255,255,255,.2)
+}
 .homepage-banner{
 margin:0 0 clamp(16px,2.4vw,26px)
 }
@@ -50,11 +104,14 @@ width:100%;
 height:auto;
 border:1px solid rgba(255,255,255,.2)
 }
-.homepage-banner a{
-display:block
-}
 .news-item{
 margin:0 0 clamp(20px,3vw,34px)
+}
+.news-item .news-date{
+margin:0 0 10px;
+font-size:clamp(13px,1.2vw,15px);
+letter-spacing:.04em;
+opacity:.82
 }
 .news-item p{
 margin:0 0 14px;
@@ -125,5 +182,8 @@ padding:14px
 }
 .lost-tapes-gallery{
 grid-template-columns:1fr
+}
+.livedates-table th,.livedates-table td{
+padding:7px 6px
 }
 }
