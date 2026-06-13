@@ -44,6 +44,15 @@ text-decoration:underline dotted
 .quick-link{
 margin:0 0 20px
 }
+.quick-links{
+display:flex;
+flex-wrap:wrap;
+gap:10px;
+margin:0 0 20px
+}
+.quick-links .quick-link{
+margin:0
+}
 .quick-link a{
 display:inline-block;
 padding:8px 12px;
@@ -58,6 +67,84 @@ background:rgba(255,255,255,.12)
 margin:0 0 18px;
 font-size:clamp(28px,4vw,46px);
 line-height:1.15
+}
+.intro-text{
+font-size:clamp(16px,1.8vw,20px)
+}
+.gallery-link-list{
+margin:0 0 22px;
+padding:0;
+list-style:none
+}
+.gallery-link-list li{
+margin:0 0 10px
+}
+.gallery-link-list a{
+display:inline-block;
+padding:10px 14px;
+border:1px solid rgba(255,255,255,.35);
+text-decoration:none
+}
+.gallery-link-list a:hover{
+background:rgba(255,255,255,.12)
+}
+.archive-note{
+margin:0 0 18px;
+padding:12px 14px;
+border:1px solid rgba(255,255,255,.2);
+background:rgba(255,255,255,.03)
+}
+.archive-note h2{
+margin:0 0 8px;
+font-size:clamp(18px,2.5vw,26px)
+}
+.archive-note p{
+margin:0 0 10px;
+font-size:clamp(14px,1.5vw,18px)
+}
+.archive-note p:last-child{
+margin-bottom:0
+}
+.archive-gallery{
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(210px,1fr));
+gap:12px
+}
+.archive-card{
+display:flex;
+flex-direction:column;
+padding:10px;
+border:1px solid rgba(255,255,255,.16);
+background:rgba(255,255,255,.02);
+gap:8px
+}
+.archive-card .entry-title{
+margin:0;
+font-size:clamp(15px,1.6vw,18px);
+line-height:1.35
+}
+.archive-card .entry-date{
+margin:0;
+font-size:clamp(12px,1.25vw,14px);
+opacity:.85
+}
+.archive-card .entry-caption{
+margin:0;
+font-size:clamp(12px,1.3vw,15px);
+line-height:1.4
+}
+.archive-card a{
+display:block
+}
+.archive-card img{
+display:block;
+width:100%;
+height:auto;
+border:1px solid rgba(255,255,255,.2)
+}
+.archive-status{
+font-size:clamp(13px,1.3vw,15px);
+opacity:.85
 }
 .year-title{
 margin:26px 0 14px;
@@ -180,7 +267,18 @@ padding:14px
 .description{
 padding:14px
 }
+.quick-links{
+gap:8px
+}
+.quick-link a{
+width:100%;
+box-sizing:border-box;
+text-align:center
+}
 .lost-tapes-gallery{
+grid-template-columns:1fr
+}
+.archive-gallery{
 grid-template-columns:1fr
 }
 .livedates-table th,.livedates-table td{

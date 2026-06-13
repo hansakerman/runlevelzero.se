@@ -1,0 +1,175 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+  <title>RUN LEVEL ZERO — Tour 2004 Gallery</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300..800;1,300..800&family=Oswald:wght@200..700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/index_f6e4.6d5d31be.css">
+</head>
+<body>
+  <div class="layout">
+    <div class="description description-text">
+      <div class="quick-links">
+        <p class="quick-link"><a href="/index.html">Home</a></p>
+        <p class="quick-link"><a href="/gallery.html">Gallery</a></p>
+        <p class="quick-link"><a href="/livedates.html">Live Dates</a></p>
+      </div>
+
+      <h1 class="page-title">Tour 2004 — European Tour MMS Blog</h1>
+      <p class="intro-text">This is our old tour photo blog from 2004. Taken with a Nokia camera phone, so the pictures are what they are :)</p>
+
+      <div id="archive-gallery" class="archive-gallery"></div>
+    </div>
+  </div>
+
+  <div id="archive-lightbox" class="lightbox" aria-hidden="true">
+    <a href="#" class="lightbox-backdrop" aria-label="Close image preview"></a>
+    <div class="lightbox-content">
+      <img id="archive-lightbox-image" src="" alt="">
+      <a href="#" class="lightbox-close" aria-label="Close image preview">Close</a>
+    </div>
+  </div>
+
+  <script>
+    function normalizeText(value) {
+      return (value || "").replace(/\s+/g, " ").trim();
+    }
+
+    function readEntryTitle(h4) {
+      if (!h4) return "";
+      var clone = h4.cloneNode(true);
+      var meta = clone.querySelector("font");
+      if (meta) meta.remove();
+      return normalizeText(clone.textContent);
+    }
+
+    function readEntryDate(h4) {
+      if (!h4) return "";
+      var meta = h4.querySelector("font");
+      return normalizeText(meta ? meta.textContent : "");
+    }
+
+    function toLocalImagePath(source, occurrence) {
+      var parts = (source || "").split("/");
+      var fileName = parts[parts.length - 1];
+      if (!fileName) return source;
+      if (occurrence <= 1) return "./" + fileName;
+      var prefix = String(occurrence - 1).padStart(3, "0");
+      return "./" + prefix + "_" + fileName;
+    }
+
+    function extractEntries(doc) {
+      var entries = [];
+      var imageOccurrences = {};
+      var headers = doc.querySelectorAll("table h4");
+      headers.forEach(function (h4) {
+        var table = h4.closest("table");
+        if (!table) return;
+        var image = table.querySelector("img");
+        if (!image) return;
+        var imageSource = image.getAttribute("src") || "";
+        var imageName = imageSource.split("/").pop();
+        if (!imageName) return;
+        imageOccurrences[imageName] = (imageOccurrences[imageName] || 0) + 1;
+        var fonts = table.querySelectorAll("font");
+        var caption = fonts.length > 1 ? normalizeText(fonts[fonts.length - 1].textContent) : "";
+        entries.push({
+          title: readEntryTitle(h4) || "(untitled)",
+          date: readEntryDate(h4),
+          caption: caption,
+          image: toLocalImagePath(imageSource, imageOccurrences[imageName])
+        });
+      });
+      return entries;
+    }
+
+    function openLightbox(src, altText) {
+      var lightbox = document.getElementById("archive-lightbox");
+      var image = document.getElementById("archive-lightbox-image");
+      image.src = src;
+      image.alt = altText || "Tour 2004 archive image";
+      lightbox.style.display = "block";
+      lightbox.setAttribute("aria-hidden", "false");
+    }
+
+    function closeLightbox() {
+      var lightbox = document.getElementById("archive-lightbox");
+      var image = document.getElementById("archive-lightbox-image");
+      image.src = "";
+      image.alt = "";
+      lightbox.style.display = "none";
+      lightbox.setAttribute("aria-hidden", "true");
+    }
+
+    async function loadArchive() {
+      var gallery = document.getElementById("archive-gallery");
+      try {
+        var response = await fetch("./rlz_diary.html");
+        if (!response.ok) throw new Error("Could not load archive source");
+        var html = await response.text();
+        var parser = new DOMParser();
+        var doc = parser.parseFromString(html, "text/html");
+        var entries = extractEntries(doc);
+
+        if (!entries.length) throw new Error("No entries found in archive source");
+
+        var fragment = document.createDocumentFragment();
+        entries.forEach(function (entry) {
+          var card = document.createElement("article");
+          card.className = "archive-card";
+
+          var link = document.createElement("a");
+          link.href = "#";
+          link.addEventListener("click", function (event) {
+            event.preventDefault();
+            openLightbox(entry.image, entry.title);
+          });
+
+          var img = document.createElement("img");
+          img.src = entry.image;
+          img.alt = entry.title;
+          img.loading = "lazy";
+          link.appendChild(img);
+
+          var date = document.createElement("p");
+          date.className = "entry-date";
+          date.textContent = entry.date;
+
+          var caption = document.createElement("p");
+          caption.className = "entry-caption";
+          caption.textContent = entry.caption || " ";
+
+          card.appendChild(link);
+          card.appendChild(date);
+          card.appendChild(caption);
+          fragment.appendChild(card);
+        });
+
+        gallery.appendChild(fragment);
+      } catch (error) {
+        gallery.innerHTML = "<p class=\"archive-status\">Could not load the archive view.</p>";
+      }
+    }
+
+    document.querySelector("#archive-lightbox .lightbox-backdrop").addEventListener("click", function (event) {
+      event.preventDefault();
+      closeLightbox();
+    });
+
+    document.querySelector("#archive-lightbox .lightbox-close").addEventListener("click", function (event) {
+      event.preventDefault();
+      closeLightbox();
+    });
+
+    window.addEventListener("keydown", function (event) {
+      var key = event.key || event.code;
+      if (key === "Escape" || key === "Esc") closeLightbox();
+    });
+
+    loadArchive();
+  </script>
+</body>
+</html>
