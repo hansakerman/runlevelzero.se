@@ -165,6 +165,11 @@
       closeLightbox();
     });
 
+    document.querySelector("#archive-lightbox .lightbox-content").addEventListener("click", function (event) {
+      if (event.target !== event.currentTarget) return;
+      closeLightbox();
+    });
+
     window.addEventListener("keydown", function (event) {
       var key = event.key || event.code;
       if (key === "Escape" || key === "Esc") closeLightbox();

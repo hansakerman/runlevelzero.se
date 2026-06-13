@@ -102,9 +102,20 @@
       if (closeLink) closeLink.focus();
     }
 
+    function setupOutsideClickClose() {
+      var contentAreas = document.querySelectorAll(".lightbox .lightbox-content");
+      contentAreas.forEach(function (content) {
+        content.addEventListener("click", function (event) {
+          if (event.target !== content) return;
+          closeLightboxIfOpen();
+        });
+      });
+    }
+
     window.addEventListener("keydown", handleEscape, true);
     window.addEventListener("keyup", handleEscape, true);
     window.addEventListener("hashchange", focusOpenLightboxClose);
+    setupOutsideClickClose();
     focusOpenLightboxClose();
   </script>
 </body>
