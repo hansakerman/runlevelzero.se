@@ -49,16 +49,17 @@
     function readEntryDate(h4) {
       if (!h4) return "";
       var meta = h4.querySelector("font");
-      return normalizeText(meta ? meta.textContent : "");
+      var text = normalizeText(meta ? meta.textContent : "");
+      return text.replace(/\s+[+-]\d{4}\s*$/, "");
     }
 
-    function toLocalImagePath(source, occurrence) {
+    function toLocalImageName(source, occurrence) {
       var parts = (source || "").split("/");
       var fileName = parts[parts.length - 1];
       if (!fileName) return source;
-      if (occurrence <= 1) return "./" + fileName;
+      if (occurrence <= 1) return fileName;
       var prefix = String(occurrence - 1).padStart(3, "0");
-      return "./" + prefix + "_" + fileName;
+      return prefix + "_" + fileName;
     }
 
     function extractEntries(doc) {
@@ -80,7 +81,7 @@
           title: readEntryTitle(h4) || "(untitled)",
           date: readEntryDate(h4),
           caption: caption,
-          image: toLocalImagePath(imageSource, imageOccurrences[imageName])
+          imageName: toLocalImageName(imageSource, imageOccurrences[imageName])
         });
       });
       return entries;
@@ -125,11 +126,11 @@
           link.href = "#";
           link.addEventListener("click", function (event) {
             event.preventDefault();
-            openLightbox(entry.image, entry.title);
+            openLightbox("./enhanced_2x/" + entry.imageName, entry.title);
           });
 
           var img = document.createElement("img");
-          img.src = entry.image;
+          img.src = "./enhanced/" + entry.imageName;
           img.alt = entry.title;
           img.loading = "lazy";
           link.appendChild(img);
