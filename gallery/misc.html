@@ -1,0 +1,283 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+  <title>RUN LEVEL ZERO — Misc Gallery</title>
+  <style>html,body{background:#000;color:#f5f5f5}</style>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300..800;1,300..800&family=Oswald:wght@200..700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/index_f6e4.6d5d31be.css">
+</head>
+<body>
+  <div class="layout">
+    <div class="description description-text">
+      <div class="quick-links">
+        <p class="quick-link"><a href="/index.html">Home</a></p>
+        <p class="quick-link"><a href="/gallery.html">Gallery</a></p>
+        <p class="quick-link"><a href="/livedates.html">Live Dates</a></p>
+      </div>
+
+      <h1 class="page-title">Misc Gallery</h1>
+      <div id="misc-gallery-root"></div>
+    </div>
+  </div>
+
+  <div id="misc-lightbox" class="lightbox" aria-hidden="true">
+    <a href="#" class="lightbox-backdrop" aria-label="Close image preview"></a>
+    <div class="lightbox-content">
+      <button type="button" class="lightbox-nav lightbox-prev" aria-label="Previous image">‹</button>
+      <img id="misc-lightbox-image" src="" alt="">
+      <button type="button" class="lightbox-nav lightbox-next" aria-label="Next image">›</button>
+      <div id="misc-lightbox-meta" class="lightbox-meta">
+        <p id="misc-lightbox-caption" class="lightbox-caption"></p>
+      </div>
+      <a href="#" class="lightbox-close" aria-label="Close image preview">Close</a>
+    </div>
+  </div>
+
+  <script>
+    var miscSlides = [];
+    var currentMiscIndex = -1;
+    var sections = [
+      {
+        title: "Promo — Stockholm, spring 2005 (landscape)",
+        credit: "All pictures © Jan-Erik Saarinen 2005.",
+        files: [
+          "rlz05bw31-concreteart.jpg",
+          "rlz05bw22-doorinwall.jpg",
+          "rlz05bw30-justhans-001.jpg",
+          "rlz05bw14-twoandtrees.jpg"
+        ]
+      },
+      {
+        title: "Promo — Stockholm, spring 2005 (portrait)",
+        credit: "All pictures © Jan-Erik Saarinen 2005.",
+        files: [
+          "rlz05bw11-sittingonthedome.jpg",
+          "rlz05bw17-bigdoor.jpg",
+          "rlz05bw20-stonewall.jpg",
+          "rlz05bw35-schoolwall.jpg"
+        ]
+      },
+      {
+        title: "Promo — Stockholm, fall 2005 (landscape)",
+        credit: "All pictures © Jan-Erik Saarinen 2005.",
+        files: [
+          "rlzokt0503-againstwallgreenish-sml.jpg",
+          "rlzokt0510-theslopealt-sml.jpg",
+          "rlzokt0513-hansproarrow-sml.jpg",
+          "rlzokt0517-concretelowangle-desat-sml.jpg",
+          "rlzokt0521-stoneartint-sml.jpg",
+          "rlzokt0523-hansmonolith-sml.jpg",
+          "rlzokt0544-bythebridge-sml.jpg",
+          "rlzokt0550-brickwall-alt-sml.jpg"
+        ]
+      },
+      {
+        title: "Promo — Stockholm, fall 2005 (portrait)",
+        credit: "All pictures © Jan-Erik Saarinen 2005.",
+        files: [
+          "rlzokt0511-hansagainstarrow-desat-sml.jpg",
+          "rlzokt0532-hansleansback-vivid-sml.jpg",
+          "rlzokt0533-autumnleavesport-sml.jpg",
+          "rlzokt0520-hakbergportrait.jpg"
+        ]
+      },
+      {
+        title: "Promo — Stockholm, 2004",
+        credit: "All pictures © Jan-Erik Saarinen 2004.",
+        files: [
+          "rlzdocks03-rustydoorcloseup-desat-sml.jpg",
+          "rlzdocks04-cornered-int-sml.jpg",
+          "rlzdocks08-shinymetaldoor-int-sml.jpg",
+          "rlzdocks13-pwallsky-int-sml.jpg",
+          "rlzdocks14-pwalltilt-int-sml.jpg"
+        ]
+      },
+      {
+        title: "Promo — Magdeburg, Germany, spring 2007",
+        credit: "All pictures © Emelie Åkerman 2007.",
+        files: [
+          "magde_1.jpg",
+          "magde_2.jpg",
+          "magde_3.jpg",
+          "magde_4.jpg",
+          "magde_5.jpg"
+        ]
+      },
+      {
+        title: "Wallpaper",
+        credit: "Archive wallpaper exports.",
+        files: [
+          "../wallpaper/wallpaper1_800.jpg",
+          "../wallpaper/wallpaper1_1024.jpg",
+          "../wallpaper/wallpaper1_1280.jpg",
+          "../wallpaper/wallpaper2_800.jpg",
+          "../wallpaper/wallpaper2_1024.jpg",
+          "../wallpaper/wallpaper2_1280.jpg",
+          "../wallpaper/wallpaper3_800.jpg",
+          "../wallpaper/wallpaper3_1024.jpg",
+          "../wallpaper/wallpaper3_1280.jpg",
+          "../wallpaper/wallpaper4_800.jpg",
+          "../wallpaper/wallpaper4_1024.jpg",
+          "../wallpaper/wallpaper4_1280.jpg"
+        ]
+      },
+      {
+        title: "Misc previews (pre)",
+        credit: "Legacy preview images from old gallery navigation.",
+        files: [
+          "../pre/pre_live1.jpg",
+          "../pre/pre_live2.jpg",
+          "../pre/pre_live3.jpg",
+          "../pre/pre_live4.jpg",
+          "../pre/pre_live5.jpg",
+          "../pre/pre_live6.jpg",
+          "../pre/pre_promo1.jpg",
+          "../pre/pre_promo2.jpg",
+          "../pre/pre_promo3.jpg",
+          "../pre/pre_promo4.jpg",
+          "../pre/pre_promo5.jpg",
+          "../pre/pre_promo6.jpg",
+          "../pre/pre_video1.jpg",
+          "../pre/pre_video2.jpg",
+          "../pre/pre_video3.jpg",
+          "../pre/pre_video4.jpg"
+        ]
+      }
+    ];
+
+    function toSrc(fileName) {
+      if (fileName.indexOf("../wallpaper/") === 0) return "/gallery/misc/wallpaper/" + fileName.slice("../wallpaper/".length);
+      if (fileName.indexOf("../pre/") === 0) return "/gallery/misc/pre/" + fileName.slice("../pre/".length);
+      return "/gallery/misc/promo/" + fileName;
+    }
+
+    function showMiscImage(index) {
+      if (!miscSlides.length) return;
+      var bounded = (index + miscSlides.length) % miscSlides.length;
+      currentMiscIndex = bounded;
+      var slide = miscSlides[bounded];
+      var image = document.getElementById("misc-lightbox-image");
+      var meta = document.getElementById("misc-lightbox-meta");
+      var caption = document.getElementById("misc-lightbox-caption");
+      image.src = slide.src;
+      image.alt = slide.alt;
+      caption.textContent = slide.caption || "";
+      meta.style.display = slide.caption ? "block" : "none";
+    }
+
+    function openLightbox(index) {
+      if (!miscSlides.length) return;
+      showMiscImage(index);
+      var lightbox = document.getElementById("misc-lightbox");
+      lightbox.style.display = "block";
+      lightbox.setAttribute("aria-hidden", "false");
+    }
+
+    function closeLightbox() {
+      var lightbox = document.getElementById("misc-lightbox");
+      var image = document.getElementById("misc-lightbox-image");
+      var meta = document.getElementById("misc-lightbox-meta");
+      var caption = document.getElementById("misc-lightbox-caption");
+      image.src = "";
+      image.alt = "";
+      caption.textContent = "";
+      meta.style.display = "none";
+      lightbox.style.display = "none";
+      lightbox.setAttribute("aria-hidden", "true");
+      currentMiscIndex = -1;
+    }
+
+    function nextMiscImage(step) {
+      if (currentMiscIndex < 0) return;
+      showMiscImage(currentMiscIndex + step);
+    }
+
+    function renderSections() {
+      var root = document.getElementById("misc-gallery-root");
+      var fragment = document.createDocumentFragment();
+
+      sections.forEach(function (section) {
+        var sectionEl = document.createElement("section");
+        sectionEl.className = "past-gigs-section";
+
+        var heading = document.createElement("h2");
+        heading.className = "year-subtitle";
+        heading.textContent = section.title;
+
+        var credit = document.createElement("p");
+        credit.className = "past-gigs-credit";
+        credit.textContent = section.credit;
+
+        var grid = document.createElement("div");
+        grid.className = "archive-gallery";
+
+        section.files.forEach(function (fileName, index) {
+          var src = toSrc(fileName);
+          var alt = section.title + " image " + (index + 1);
+          var slideIndex = miscSlides.push({ src: src, alt: alt, caption: section.title }) - 1;
+
+          var card = document.createElement("article");
+          card.className = "archive-card";
+          var link = document.createElement("a");
+          link.href = "#";
+          link.addEventListener("click", function (event) {
+            event.preventDefault();
+            openLightbox(slideIndex);
+          });
+
+          var img = document.createElement("img");
+          img.src = src;
+          img.alt = alt;
+          img.loading = "lazy";
+
+          link.appendChild(img);
+          card.appendChild(link);
+          grid.appendChild(card);
+        });
+
+        sectionEl.appendChild(heading);
+        sectionEl.appendChild(credit);
+        sectionEl.appendChild(grid);
+        fragment.appendChild(sectionEl);
+      });
+
+      root.appendChild(fragment);
+    }
+
+    document.querySelector("#misc-lightbox .lightbox-backdrop").addEventListener("click", function (event) {
+      event.preventDefault();
+      closeLightbox();
+    });
+    document.querySelector("#misc-lightbox .lightbox-close").addEventListener("click", function (event) {
+      event.preventDefault();
+      closeLightbox();
+    });
+    document.querySelector("#misc-lightbox .lightbox-prev").addEventListener("click", function (event) {
+      event.preventDefault();
+      event.stopPropagation();
+      nextMiscImage(-1);
+    });
+    document.querySelector("#misc-lightbox .lightbox-next").addEventListener("click", function (event) {
+      event.preventDefault();
+      event.stopPropagation();
+      nextMiscImage(1);
+    });
+    document.querySelector("#misc-lightbox .lightbox-content").addEventListener("click", function (event) {
+      if (event.target !== event.currentTarget) return;
+      closeLightbox();
+    });
+    window.addEventListener("keydown", function (event) {
+      var key = event.key || event.code;
+      if (key === "Escape" || key === "Esc") closeLightbox();
+      if (key === "ArrowLeft") nextMiscImage(-1);
+      if (key === "ArrowRight") nextMiscImage(1);
+    });
+
+    renderSections();
+  </script>
+</body>
+</html>
