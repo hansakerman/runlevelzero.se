@@ -146,12 +146,41 @@
           "../pre/pre_video3.jpg",
           "../pre/pre_video4.jpg"
         ]
+      },
+      {
+        title: "Press scans (converted from TIFF)",
+        credit: "Legacy press images converted to JPEG for web viewing.",
+        files: [
+          "../press/rlz4.jpg",
+          "../press/rlz5.jpg",
+          "../press/rlz7.jpg",
+          "../press/rlz8.jpg",
+          "../press/rlz9.jpg",
+          "../press/rlz_press1.jpg",
+          "../press/rlz_press2.jpg"
+        ]
+      },
+      {
+        title: "Promo press photos (from TIFF)",
+        credit: "Legacy promo TIFF files converted to JPEG for web viewing.",
+        files: [
+          "../promo-tiff/rlz05bw11-sittingonthedome.jpg",
+          "../promo-tiff/rlz05bw20-stonewall.jpg",
+          "../promo-tiff/rlz05bw22-doorinwall.jpg",
+          "../promo-tiff/rlz05bw30-justhans-001.jpg",
+          "../promo-tiff/rlz05bw31-concreteart.jpg",
+          "../promo-tiff/rlz05bw35-schoolwall.jpg",
+          "../promo-tiff/rlz_rooftop.jpg",
+          "../promo-tiff/rlz_stairs.jpg"
+        ]
       }
     ];
 
     function toSrc(fileName) {
       if (fileName.indexOf("../wallpaper/") === 0) return "/gallery/misc/wallpaper/" + fileName.slice("../wallpaper/".length);
       if (fileName.indexOf("../pre/") === 0) return "/gallery/misc/pre/" + fileName.slice("../pre/".length);
+      if (fileName.indexOf("../press/") === 0) return "/gallery/misc/press/" + fileName.slice("../press/".length);
+      if (fileName.indexOf("../promo-tiff/") === 0) return "/gallery/misc/promo-tiff/" + fileName.slice("../promo-tiff/".length);
       return "/gallery/misc/promo/" + fileName;
     }
 

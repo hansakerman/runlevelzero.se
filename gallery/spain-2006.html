@@ -1,0 +1,174 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+  <title>RUN LEVEL ZERO — Spain Gig Gallery 2006</title>
+  <style>html,body{background:#000;color:#f5f5f5}</style>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300..800;1,300..800&family=Oswald:wght@200..700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/index_f6e4.6d5d31be.css">
+</head>
+<body>
+  <div class="layout">
+    <div class="description description-text">
+      <div class="quick-links">
+        <p class="quick-link"><a href="/index.html">Home</a></p>
+        <p class="quick-link"><a href="/gallery.html">Gallery</a></p>
+        <p class="quick-link"><a href="/livedates.html">Live Dates</a></p>
+      </div>
+
+      <h1 class="page-title">Spain Gig Gallery — 2006</h1>
+      <p class="intro-text">Gig: April 1, 2006 — Madrid, Spain — Body Machine Festival.</p>
+      <p class="intro-text">We do not seem to have any photos from the actual gig — only some low-quality tourist pictures from the trip.</p>
+      <p class="intro-text">Still, it was a fantastic trip, and we even got to fly first class on the way home because the airline messed up.</p>
+      <p class="intro-text">These digital photos were taken with a Nokia 6630 camera phone.</p>
+      <div id="spain-gallery" class="archive-gallery"></div>
+    </div>
+  </div>
+
+  <div id="spain-lightbox" class="lightbox" aria-hidden="true">
+    <a href="#" class="lightbox-backdrop" aria-label="Close image preview"></a>
+    <div class="lightbox-content">
+      <button type="button" class="lightbox-nav lightbox-prev" aria-label="Previous image">‹</button>
+      <img id="spain-lightbox-image" src="" alt="">
+      <button type="button" class="lightbox-nav lightbox-next" aria-label="Next image">›</button>
+      <div id="spain-lightbox-meta" class="lightbox-meta">
+        <p id="spain-lightbox-caption" class="lightbox-caption"></p>
+      </div>
+      <a href="#" class="lightbox-close" aria-label="Close image preview">Close</a>
+    </div>
+  </div>
+
+  <script>
+    var slides = [
+      { file: "30032006.jpg", timestamp: "2006-03-30 12:48:03 +0000" },
+      { file: "31032006.jpg", timestamp: "2006-03-31 14:17:31 +0000" },
+      { file: "31032006(001).jpg", timestamp: "2006-03-31 14:17:42 +0000" },
+      { file: "31032006(002).jpg", timestamp: "2006-03-31 14:17:46 +0000" },
+      { file: "31032006(003).jpg", timestamp: "2006-03-31 15:08:01 +0000" },
+      { file: "31032006(004).jpg", timestamp: "2006-03-31 15:08:02 +0000" },
+      { file: "31032006(005).jpg", timestamp: "2006-03-31 17:40:09 +0000" },
+      { file: "01042006.jpg", timestamp: "2006-04-01 15:12:54 +0000" },
+      { file: "01042006(001).jpg", timestamp: "2006-04-01 15:12:56 +0000" },
+      { file: "01042006(002).jpg", timestamp: "2006-04-01 21:10:46 +0000" },
+      { file: "02042006.jpg", timestamp: "2006-04-02 13:25:36 +0000" },
+      { file: "02042006(001).jpg", timestamp: "2006-04-02 13:25:42 +0000" },
+      { file: "02042006(002).jpg", timestamp: "2006-04-02 13:49:47 +0000" },
+      { file: "02042006(003).jpg", timestamp: "2006-04-02 15:02:27 +0000" },
+      { file: "02042006(004).jpg", timestamp: "2006-04-02 15:18:33 +0000" },
+      { file: "02042006(005).jpg", timestamp: "2006-04-02 15:18:43 +0000" },
+      { file: "02042006(006).jpg", timestamp: "2006-04-02 15:19:31 +0000" },
+      { file: "02042006(007).jpg", timestamp: "2006-04-02 15:19:35 +0000" },
+      { file: "02042006(008).jpg", timestamp: "2006-04-02 15:37:16 +0000" },
+      { file: "02042006(009).jpg", timestamp: "2006-04-02 15:37:19 +0000" },
+      { file: "02042006(010).jpg", timestamp: "2006-04-02 16:23:34 +0000" },
+      { file: "02042006(011).jpg", timestamp: "2006-04-02 16:23:44 +0000" }
+    ];
+
+    var currentIndex = -1;
+
+    function srcFor(file) {
+      return "/gallery/spain-2006/" + file;
+    }
+
+    function show(index) {
+      if (!slides.length) return;
+      var bounded = (index + slides.length) % slides.length;
+      currentIndex = bounded;
+      var slide = slides[bounded];
+      document.getElementById("spain-lightbox-image").src = srcFor(slide.file);
+      document.getElementById("spain-lightbox-image").alt = "Spain gig image";
+      document.getElementById("spain-lightbox-caption").textContent = slide.timestamp;
+      document.getElementById("spain-lightbox-meta").style.display = "block";
+    }
+
+    function openLightbox(index) {
+      show(index);
+      var box = document.getElementById("spain-lightbox");
+      box.style.display = "block";
+      box.setAttribute("aria-hidden", "false");
+    }
+
+    function closeLightbox() {
+      var box = document.getElementById("spain-lightbox");
+      var img = document.getElementById("spain-lightbox-image");
+      img.src = "";
+      img.alt = "";
+      document.getElementById("spain-lightbox-caption").textContent = "";
+      document.getElementById("spain-lightbox-meta").style.display = "none";
+      box.style.display = "none";
+      box.setAttribute("aria-hidden", "true");
+      currentIndex = -1;
+    }
+
+    function step(direction) {
+      if (currentIndex < 0) return;
+      show(currentIndex + direction);
+    }
+
+    function render() {
+      var root = document.getElementById("spain-gallery");
+      var frag = document.createDocumentFragment();
+      slides.forEach(function (slide, index) {
+        var card = document.createElement("article");
+        card.className = "archive-card";
+
+        var link = document.createElement("a");
+        link.href = "#";
+        link.addEventListener("click", function (event) {
+          event.preventDefault();
+          openLightbox(index);
+        });
+
+        var img = document.createElement("img");
+        img.src = srcFor(slide.file);
+        img.alt = "Spain gig image";
+        img.loading = "lazy";
+        link.appendChild(img);
+
+        var ts = document.createElement("p");
+        ts.className = "entry-date";
+        ts.textContent = slide.timestamp;
+
+        card.appendChild(link);
+        card.appendChild(ts);
+        frag.appendChild(card);
+      });
+      root.appendChild(frag);
+    }
+
+    document.querySelector("#spain-lightbox .lightbox-backdrop").addEventListener("click", function (event) {
+      event.preventDefault();
+      closeLightbox();
+    });
+    document.querySelector("#spain-lightbox .lightbox-close").addEventListener("click", function (event) {
+      event.preventDefault();
+      closeLightbox();
+    });
+    document.querySelector("#spain-lightbox .lightbox-prev").addEventListener("click", function (event) {
+      event.preventDefault();
+      event.stopPropagation();
+      step(-1);
+    });
+    document.querySelector("#spain-lightbox .lightbox-next").addEventListener("click", function (event) {
+      event.preventDefault();
+      event.stopPropagation();
+      step(1);
+    });
+    document.querySelector("#spain-lightbox .lightbox-content").addEventListener("click", function (event) {
+      if (event.target !== event.currentTarget) return;
+      closeLightbox();
+    });
+    window.addEventListener("keydown", function (event) {
+      var key = event.key || event.code;
+      if (key === "Escape" || key === "Esc") closeLightbox();
+      if (key === "ArrowLeft") step(-1);
+      if (key === "ArrowRight") step(1);
+    });
+
+    render();
+  </script>
+</body>
+</html>
