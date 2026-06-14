@@ -63,6 +63,14 @@
       return text.replace(/\s+[+-]\d{4}\s*$/, "");
     }
 
+    function readEntryTimestamp(h4) {
+      if (!h4) return null;
+      var meta = h4.querySelector("font");
+      var text = normalizeText(meta ? meta.textContent : "");
+      var timestamp = Date.parse(text);
+      return Number.isNaN(timestamp) ? null : timestamp;
+    }
+
     function toLocalImageName(source, occurrence) {
       var parts = (source || "").split("/");
       var fileName = parts[parts.length - 1];
@@ -90,6 +98,7 @@
         entries.push({
           title: readEntryTitle(h4) || "(untitled)",
           date: readEntryDate(h4),
+          timestamp: readEntryTimestamp(h4),
           caption: caption,
           imageName: toLocalImageName(imageSource, imageOccurrences[imageName])
         });
@@ -153,6 +162,12 @@
         var parser = new DOMParser();
         var doc = parser.parseFromString(html, "text/html");
         var entries = extractEntries(doc);
+        entries.sort(function (a, b) {
+          if (a.timestamp === null && b.timestamp === null) return 0;
+          if (a.timestamp === null) return 1;
+          if (b.timestamp === null) return -1;
+          return a.timestamp - b.timestamp;
+        });
         archiveEntries = entries.slice();
 
         if (!entries.length) throw new Error("No entries found in archive source");

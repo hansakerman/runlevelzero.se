@@ -1,0 +1,251 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+  <title>RUN LEVEL ZERO — US Tour 2006</title>
+  <style>html,body{background:#000;color:#f5f5f5}</style>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300..800;1,300..800&family=Oswald:wght@200..700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/index_f6e4.6d5d31be.css">
+</head>
+<body>
+  <div class="layout">
+    <div class="description description-text">
+      <div class="quick-links">
+        <p class="quick-link"><a href="/index.html">Home</a></p>
+        <p class="quick-link"><a href="/gallery.html">Gallery</a></p>
+        <p class="quick-link"><a href="/livedates.html">Live Dates</a></p>
+      </div>
+
+      <h1 class="page-title">US Tour Gallery — 2006</h1>
+      <p class="intro-text">Run Level Zero US Tour (Jan 12–Jan 28, 2006).</p>
+      <p class="intro-text">Cameras used: Nokia 6630 (mostly), Sony Ericsson K750i, and HP PhotoSmart 620.</p>
+      <p class="intro-text">Addendum: The diary timestamps are a bit wonky, and the February/March date tags are probably wrong.</p>
+      <div id="us-gallery" class="archive-gallery"></div>
+    </div>
+  </div>
+
+  <div id="us-lightbox" class="lightbox" aria-hidden="true">
+    <a href="#" class="lightbox-backdrop" aria-label="Close image preview"></a>
+    <div class="lightbox-content">
+      <button type="button" class="lightbox-nav lightbox-prev" aria-label="Previous image">‹</button>
+      <img id="us-lightbox-image" src="" alt="">
+      <button type="button" class="lightbox-nav lightbox-next" aria-label="Next image">›</button>
+      <div id="us-lightbox-meta" class="lightbox-meta">
+        <p id="us-lightbox-title" class="lightbox-date"></p>
+        <p id="us-lightbox-date" class="lightbox-date"></p>
+        <p id="us-lightbox-caption" class="lightbox-caption"></p>
+      </div>
+      <a href="#" class="lightbox-close" aria-label="Close image preview">Close</a>
+    </div>
+  </div>
+
+  <script>
+    var entries = [];
+    var currentIndex = -1;
+    var missingToken = "msg_2006-01-25_00:15:53";
+
+    function normalizeText(value) {
+      return (value || "").replace(/\s+/g, " ").trim();
+    }
+
+    function formatEntryDate(raw) {
+      var cleaned = normalizeText(raw).replace(/^[A-Za-z]{3},\s*/, "").replace(/\s+[+-]\d{4}\b/, "");
+      var dayMonthYear = cleaned.match(/\b\d{1,2}\s+[A-Za-z]{3}\s+\d{4}\b/);
+      return dayMonthYear ? dayMonthYear[0] : cleaned.replace(/\s+\d{1,2}:\d{2}:\d{2}\b/, "");
+    }
+
+    function parseEntryTimestamp(raw) {
+      var text = normalizeText(raw);
+      var timestamp = Date.parse(text);
+      return Number.isNaN(timestamp) ? null : timestamp;
+    }
+
+    function toAbsolute(path) {
+      if (!path) return "";
+      if (path.indexOf("img_us/") === 0) return "/gallery/us-tour-2006/" + path;
+      return path;
+    }
+
+    function parseEntries(doc) {
+      var parsed = [];
+      var headers = doc.querySelectorAll("h4");
+
+      headers.forEach(function (h4) {
+        var cardTable = h4.closest("table");
+        if (!cardTable) return;
+        var rows = cardTable.querySelectorAll("tr");
+        if (rows.length < 3) return;
+
+        var headCell = rows[0].querySelector("td");
+        var title = normalizeText(h4.textContent);
+        var headerText = normalizeText(headCell ? headCell.textContent : "");
+        var rawDate = headerText.replace(title, "");
+        var date = formatEntryDate(rawDate);
+        var timestamp = parseEntryTimestamp(rawDate);
+
+        var anchor = rows[1].querySelector("a");
+        var image = rows[1].querySelector("img");
+        if (!anchor || !image) return;
+
+        var fullSrc = toAbsolute(anchor.getAttribute("href") || "");
+        if (!fullSrc) return;
+
+        if (fullSrc.indexOf(missingToken) !== -1) return;
+
+        var captionCell = rows[2].querySelector("td");
+        var caption = normalizeText(captionCell ? captionCell.textContent : "");
+
+        parsed.push({
+          title: title || "(untitled)",
+          date: date,
+          timestamp: timestamp,
+          caption: caption,
+          thumbSrc: fullSrc,
+          fullSrc: fullSrc
+        });
+      });
+
+      return parsed;
+    }
+
+    function show(index) {
+      if (!entries.length) return;
+      var bounded = (index + entries.length) % entries.length;
+      currentIndex = bounded;
+      var entry = entries[bounded];
+      var img = document.getElementById("us-lightbox-image");
+      var titleEl = document.getElementById("us-lightbox-title");
+      var dateEl = document.getElementById("us-lightbox-date");
+      var captionEl = document.getElementById("us-lightbox-caption");
+      var meta = document.getElementById("us-lightbox-meta");
+
+      img.src = entry.fullSrc;
+      img.alt = entry.title || "US tour image";
+      titleEl.textContent = entry.title || "";
+      dateEl.textContent = entry.date || "";
+      captionEl.textContent = entry.caption || "";
+      meta.style.display = (entry.title || entry.date || entry.caption) ? "block" : "none";
+    }
+
+    function openLightbox(index) {
+      if (!entries.length) return;
+      show(index);
+      var box = document.getElementById("us-lightbox");
+      box.style.display = "block";
+      box.setAttribute("aria-hidden", "false");
+    }
+
+    function closeLightbox() {
+      var box = document.getElementById("us-lightbox");
+      var img = document.getElementById("us-lightbox-image");
+      img.src = "";
+      img.alt = "";
+      document.getElementById("us-lightbox-title").textContent = "";
+      document.getElementById("us-lightbox-date").textContent = "";
+      document.getElementById("us-lightbox-caption").textContent = "";
+      document.getElementById("us-lightbox-meta").style.display = "none";
+      box.style.display = "none";
+      box.setAttribute("aria-hidden", "true");
+      currentIndex = -1;
+    }
+
+    function step(direction) {
+      if (currentIndex < 0) return;
+      show(currentIndex + direction);
+    }
+
+    function render() {
+      var root = document.getElementById("us-gallery");
+      var frag = document.createDocumentFragment();
+
+      entries.forEach(function (entry, index) {
+        var card = document.createElement("article");
+        card.className = "archive-card";
+
+        var link = document.createElement("a");
+        link.href = "#";
+        link.addEventListener("click", function (event) {
+          event.preventDefault();
+          openLightbox(index);
+        });
+
+        var img = document.createElement("img");
+        img.src = entry.thumbSrc;
+        img.alt = entry.title || "US tour image";
+        img.loading = "lazy";
+        link.appendChild(img);
+
+        var date = document.createElement("p");
+        date.className = "entry-date";
+        date.textContent = entry.date || "";
+
+        var caption = document.createElement("p");
+        caption.className = "entry-caption";
+        caption.textContent = entry.caption || " ";
+
+        card.appendChild(link);
+        card.appendChild(date);
+        card.appendChild(caption);
+        frag.appendChild(card);
+      });
+
+      root.appendChild(frag);
+    }
+
+    async function loadUsTour() {
+      var root = document.getElementById("us-gallery");
+      try {
+        var response = await fetch("/gallery/us-tour-2006/rlz_diary_us_table.html");
+        if (!response.ok) throw new Error("Could not load US tour source");
+        var html = await response.text();
+        var doc = new DOMParser().parseFromString(html, "text/html");
+        entries = parseEntries(doc);
+        entries.sort(function (a, b) {
+          if (a.timestamp === null && b.timestamp === null) return 0;
+          if (a.timestamp === null) return 1;
+          if (b.timestamp === null) return -1;
+          return a.timestamp - b.timestamp;
+        });
+        if (!entries.length) throw new Error("No US tour entries found");
+        render();
+      } catch (error) {
+        root.innerHTML = "<p class=\"archive-status\">Could not load the US tour gallery.</p>";
+      }
+    }
+
+    document.querySelector("#us-lightbox .lightbox-backdrop").addEventListener("click", function (event) {
+      event.preventDefault();
+      closeLightbox();
+    });
+    document.querySelector("#us-lightbox .lightbox-close").addEventListener("click", function (event) {
+      event.preventDefault();
+      closeLightbox();
+    });
+    document.querySelector("#us-lightbox .lightbox-prev").addEventListener("click", function (event) {
+      event.preventDefault();
+      event.stopPropagation();
+      step(-1);
+    });
+    document.querySelector("#us-lightbox .lightbox-next").addEventListener("click", function (event) {
+      event.preventDefault();
+      event.stopPropagation();
+      step(1);
+    });
+    document.querySelector("#us-lightbox .lightbox-content").addEventListener("click", function (event) {
+      if (event.target !== event.currentTarget) return;
+      closeLightbox();
+    });
+    window.addEventListener("keydown", function (event) {
+      var key = event.key || event.code;
+      if (key === "Escape" || key === "Esc") closeLightbox();
+      if (key === "ArrowLeft") step(-1);
+      if (key === "ArrowRight") step(1);
+    });
+
+    loadUsTour();
+  </script>
+</body>
+</html>
