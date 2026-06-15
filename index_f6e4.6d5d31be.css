@@ -1,14 +1,14 @@
 :root{
-  --bg:#090a09;
-  --bg-soft:#121512;
-  --panel:#151915;
-  --panel-soft:rgba(22,27,22,.88);
+  --bg:#12141b;
+  --bg-soft:#1b1f2c;
+  --panel:#1a1e2a;
+  --panel-soft:rgba(28,33,46,.88);
   --text:#e2e6e2;
   --text-muted:#a8aea8;
   --accent:#89ad33;
   --accent-soft:#6e8f25;
-  --line:rgba(170,185,170,.28);
-  --line-strong:rgba(170,185,170,.48);
+  --line:rgba(165,176,196,.28);
+  --line-strong:rgba(165,176,196,.48);
   --shadow:0 10px 34px rgba(0,0,0,.48);
 }
 
@@ -18,7 +18,7 @@ html,body{
   width:100%;
   min-height:100%;
   overflow-x:hidden;
-  background:radial-gradient(120% 90% at 50% 0,var(--bg-soft) 0,var(--bg) 58%,#050505 100%);
+  background:radial-gradient(120% 90% at 50% 0,var(--bg-soft) 0,var(--bg) 58%,#0a0b11 100%);
   color:var(--text)
 }
 
@@ -45,7 +45,7 @@ body{
   width:min(980px,100%);
   padding:clamp(18px,3vw,36px);
   border:1px solid var(--line);
-  background:linear-gradient(180deg,rgba(24,29,24,.9),var(--panel-soft));
+  background:linear-gradient(180deg,rgba(33,38,53,.9),var(--panel-soft));
   box-shadow:var(--shadow);
   backdrop-filter:blur(2px)
 }
